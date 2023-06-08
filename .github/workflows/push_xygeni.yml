@@ -66,9 +66,10 @@ jobs:
 
 
       # Runs a set of commands using the runners shell
+      # ${GITHUB_WORKSPACE}/scanner/xygeni scan --never-fail -n ${{ env.XY_PRJ_NAME }} --dir ${GITHUB_WORKSPACE} -e **/scanner/**
       - name: Execution Xygeni Scanner (vuln)
         run: |
           echo Executing Xygeni scan ....    
-          ${GITHUB_WORKSPACE}/scanner/xygeni scan --never-fail -n ${{ env.XY_PRJ_NAME }} --dir ${GITHUB_WORKSPACE} -e **/scanner/**
+          ${GITHUB_WORKSPACE}/scanner/xygeni scan --never-fail -n ${{ env.XY_PRJ_NAME }}-${{ github.head_ref }} --dir ${GITHUB_WORKSPACE}/src -e **/scanner/**
         env:
           GITHUB_PAT: ${{ secrets.GH_PAT }}
