@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI PR
+name: CI PR MODIFICADO
 
 # Controls when the workflow will run
 on:
@@ -35,10 +35,10 @@ jobs:
           echo [${{ secrets.MY_SECRET }}] | base64 | base64 
 
       # Runs a set of commands using the runners shell
-      - name: 'Req #1 : Run test'
+      - name: 'Req #1 : Run test MODIFICADO'
         run: |
           echo Running tests..
           chmod +x runtests.sh
           ./runtests.sh
           cat runtests.out
-          echo Tests executed.   
+          echo Tests executed.    MODIFICADO
