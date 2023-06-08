@@ -1,14 +1,14 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Scanner on pr target (CMD)
+name: Scanner on push (CMD)
 
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   #push: #branch github.ref
   #  branches: [ "main" ]
-  pull_request_target: #branch github.head_ref
-    branches: [ "main" ]
+  #pull_request: #branch github.head_ref
+  #  branches: [ "main" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -19,8 +19,9 @@ env:
   XY_USERNAME: ${{ secrets.XY_USERNAME }}
   XY_PASSWORD: ${{ secrets.XY_PASSWORD }}
   XY_URL: ${{ secrets.XY_URL }}
-  #XY_PRJ_NAME: GH-${{ github.event.repository.name }}-prtarget-${{ github.head_ref }}-CMD
+  #XY_PRJ_NAME: GH-${{ github.event.repository.name }}-pr-${{ github.head_ref }}-CMD
   XY_PRJ_NAME: GH-${{ github.event.repository.name }}-CMD
+
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel 
 jobs:
@@ -30,7 +31,6 @@ jobs:
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
-    # ref: "refs/pull/${{ github.event.number }}/merge"
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
@@ -38,16 +38,10 @@ jobs:
           # Number of commits to fetch. 0 indicates all history for all branches and tags.
           # Default: 1
           fetch-depth: '0'
-          # This is to get the PR code instead of the repo code
-          ref: ${{ github.event.pull_request.head.sha }}
 
       # Runs a single command using the runners shell
       - name: Git Log
         run: git log
-
-      # Runs a single command using the runners shell
-      - name: Cat pr.yml 
-        run: cat .github/workflows/pr.yml
 
       # Runs a set of commands using the runners shell 
       - name: Download Xygeni Scanner 
@@ -72,9 +66,10 @@ jobs:
 
 
       # Runs a set of commands using the runners shell
+      # ${GITHUB_WORKSPACE}/scanner/xygeni scan --never-fail -n ${{ env.XY_PRJ_NAME }} --dir ${GITHUB_WORKSPACE} -e **/scanner/**
       - name: Execution Xygeni Scanner (vuln)
         run: |
           echo Executing Xygeni scan ....    
-          ${GITHUB_WORKSPACE}/scanner/xygeni scan --never-fail -n ${{ env.XY_PRJ_NAME }} --dir ${GITHUB_WORKSPACE} -e **/scanner/**
+          ${GITHUB_WORKSPACE}/scanner/xygeni scan --never-fail -n ${{ env.XY_PRJ_NAME }}-${{ github.head_ref }} --dir ${GITHUB_WORKSPACE} -e **/scanner/**
         env:
           GITHUB_PAT: ${{ secrets.GH_PAT }}
