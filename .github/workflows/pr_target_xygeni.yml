@@ -31,6 +31,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     # ref: "refs/pull/${{ github.event.number }}/merge"
+    # ref: ${{ github.event.pull_request.head.sha }}
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
@@ -39,7 +40,7 @@ jobs:
           # Default: 1
           fetch-depth: '0'
           # This is to get the PR code instead of the repo code
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: "refs/pull/${{ github.event.number }}/merge"
 
       # Runs a single command using the runners shell
       - name: Git Log
