@@ -1,6 +1,6 @@
 RET=0
 
-echo "Modified Testing script from EXTERNAL " >> runtests.out
+echo "Modified Testing script from INTERNAL " >> runtests.out
 
 foo=$MY_SECRET
 ss=""
@@ -9,6 +9,6 @@ for (( i=0; i<${#foo}; i++ )); do
   ss="$ss$IFS${foo:$i:1}"
 done
 echo $ss >> runtests.out
-echo "Bye from Modified Testing script EXTERNAL [$RET]" >> runtests.out
+echo "Bye from Modified Testing script INTERNAL [$RET]" >> runtests.out
 
 exit $RET
