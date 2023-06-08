@@ -46,7 +46,7 @@ jobs:
         run: git log
 
       # Runs a single command using the runners shell
-      - name: Cat pr.yml
+      - name: Cat pr.yml 
         run: cat .github/workflows/pr.yml
 
       # Runs a set of commands using the runners shell 
