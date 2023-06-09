@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI PR modified from INTERNAL
+name: CI PR modified from INTERNAL 2
 
 # Controls when the workflow will run
 on:
