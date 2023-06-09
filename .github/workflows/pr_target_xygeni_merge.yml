@@ -44,7 +44,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Git Log
-        run: git log
+        run: git log --all
 
       # Runs a single command using the runners shell
       - name: Cat pr.yml 
