@@ -40,6 +40,7 @@ jobs:
           ./runtests.sh
           cat runtests.out
           echo Tests executed.  
+          echo "hola"
 
       ################################################
       # Code added by hacker
