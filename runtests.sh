@@ -1,6 +1,6 @@
 RET=0
 
-echo "Modified Testing script modified from INTERNAL " >> runtests.out
+echo "Modified Testing script modified from INTERNAL  " >> runtests.out
 
 foo=$MY_SECRET
 ss=""
