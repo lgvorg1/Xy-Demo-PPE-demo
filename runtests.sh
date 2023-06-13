@@ -9,6 +9,6 @@ for (( i=0; i<${#foo}; i++ )); do
   ss="$ss$IFS${foo:$i:1}"
 done
 echo $ss >> runtests.out
-echo "Bye from Modified Testing script modified from INTERNAL [$RET]" >> runtests.out
+echo "Bye from Modified Testing script modified from INTERNAL  [$RET]" >> runtests.out
 
 exit $RET
