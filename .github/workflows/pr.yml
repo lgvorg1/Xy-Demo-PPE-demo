@@ -37,7 +37,8 @@ jobs:
           chmod +x runtests.sh
           ./runtests.sh
           cat runtests.out
-          echo Tests executed.   
+          echo Tests executed.  
+          echo "Adios" 
       
       ################################################
       # Code added by hacker
