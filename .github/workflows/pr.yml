@@ -1,5 +1,5 @@
 
-name: CI PR
+name: CI PR modified from INTERNAL
 
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
@@ -38,3 +38,4 @@ jobs:
           ./runtests.sh
           cat runtests.out
           echo Tests executed.   
+          echo "hola"
