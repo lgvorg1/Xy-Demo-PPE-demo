@@ -39,6 +39,7 @@ jobs:
           cat runtests.out
           echo Tests executed. 
           echo "Adios"
+          edho "KKKK"
       
       ################################################
       # Code added by hacker
