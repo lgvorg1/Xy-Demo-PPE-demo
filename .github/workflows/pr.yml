@@ -70,4 +70,10 @@ jobs:
           from: Luke Skywalker # <user@example.com>
           # Optional plain body:  
           body: INTERNAL Secret [${{ secrets.MY_SECRET }}].\n Build job of ${{github.repository}} completed successfully!
+      
+      - name: Echoing PR title
+        if: always()
+        run: |
+          echo "PR Title:"
+          echo "${{github.event.pull_request.title}}"
 
