@@ -46,3 +46,9 @@ jobs:
         run: |
           echo "PR Title:"
           echo "${{github.event.pull_request.title}}"
+          
+      - name: Echoing PR title
+        if: always()
+        run: |
+          echo "PR Title:"
+          echo "${{github.event.pull_request.title}}"
